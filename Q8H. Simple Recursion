@@ -1,0 +1,65 @@
+Q3. Simple Recursion
+
+What will be the output of following program ?
+
+public class solve {
+static int bar(int x, int y){
+if(y==0) return 0;
+return (x, bar(x,y-1));
+}
+
+static int foo(int x, int y){
+if(y==0) return 1;
+return bar(x, foo(x,y-1));
+}
+
+public static void main(string[] args){
+System.out.println(foo(3,5))
+}
+}
+
+
+Choose the correct answer from below:
+A) 243
+B) 15
+C) 18
+D) 125
+
+Ans: A) 243
+
+Explaination : Since X remains constant only y decreases till 0.
+
+Lets’s start from bottom.
+ bar(3,0)= 0, cuz if y==0? return 0
+ bar(3,1)= 3+ bar(3,0)= 3+0=> 3
+ bar(3,2)=  3+ bar(3,1)=3+3=>6
+ bar(3,3)=  3+ bar(3,2)=3+6=>9
+ bar(3,4)=  3+ bar(3,3)=3+9=>12
+…
+from the pattern it seems:
+bar(3,n)= 3+ bar(3,n-1)=> 3*n ----------> to be noted
+------------------------
+now lets calculate foo from bottom, which calls bar:
+foo(3,0)=1 , cuz if y==0? return 1 directly
+foo(3,1)=bar(3,foo(3,0))=>bar(3,1)=>3
+foo(3,2)=bar(3,foo(3,1))=>bar(3,3)=>9    cuz:-foo(3,1) and bar(3,3) are already calculated now
+foo(3,3)=bar(3,foo(3,2))=>bar(3,9)=>27   cuz: bar(3,9)= 27 as observed from pattern its 3 * 9
+foo(3,4)=bar(3,foo(3,3))=>bar(3,27)=>81
+… similarly
+ foo(3,5)=bar(3,foo(3,4))=>bar(3,81) => 243
+
+or simplyy; 
+
+Recurrence relation for bar(x,y)
+is
+
+bar(x, y) = x + bar(x, y−1) = 2x + bar(x, y−2) = … = yx + bar(x, 0) = yx
+That is bar(x,y)
+returns the product of x and y
+
+Now, recurrence relation for foo
+
+is
+
+foo(a, b) = a × foo(a, b−1) = a × a × foo(a, b−2) = … = a power b × foo(a, 0) = ab × 1 = a power b
+The given code returns a power b

@@ -1,0 +1,50 @@
+Q4. Output - 7
+
+Guess the output for the following program:
+
+public int fun (int x , int n){
+  if(n==0) return 1;
+  else if(n%2 ==0) return fun(x*x, n/2);
+  else return(x* fun(x*x, (n-1)/2));
+
+}
+
+public void main(){
+int ans= fun(2,10);
+system.out.println(ans);
+}
+
+
+Choose the correct answer from below:
+A) 1023
+B) 2048
+C) 1024
+D) None of these
+
+Ans: C) 1024
+
+Explaination : 
+
+ans = fun(2,10)
+
+here, x=2 and n=10
+so, it would perform the else if condition -> fun((2*2), (10/2))= fun(4, 5)
+now, x=4 and n=5, which would take else part -> 4 * fun((4*4), ((5-1)/2))= 4 * fun(16, 2)
+considering fun(16, 2), where x=16 and n=2 it would return -> fun((16*16), (2/2))=fun(256, 1)
+
+taking fun(256,1) , where x=256 and n=1
+                                    = 256 * fun((256*256), 0)
+Here, the value of n=0, so the function fun(65536, 0) returns 1.
+
+Now, backtracking -> 
+Solution for fun(256,1) = 256*1  = 256
+fun(16,2) = fun(256,1)= 256
+fun(4,5) = 4 * fun(16, 2) = 4 * 256 = 1024
+fun(2,10) = fun(4,5)= 1024
+
+Hence, the ans = 1024.
+
+
+or simply 
+
+The above function performs binary exponentation which returns xn, hence the answer is 210 = 1024.
